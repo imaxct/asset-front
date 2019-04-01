@@ -1,9 +1,10 @@
-import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from '@/components/HelloFromVux.vue'
 
 export default [
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    name: 'login',
+    component: HelloWorld,
+    access: []
   }
 ]
