@@ -17,7 +17,6 @@ const turnTo = (to, access, next) => {
   else next({ replace: true, name: 'login' })
 }
 router.beforeEach((to, from, next) => {
-  store.commit('updateLoadingStatus', { isLoading: true })
   const token = getToken()
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
@@ -44,9 +43,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach(to => {
-  setTimeout(() => {
-    store.commit('updateLoadingStatus', { isLoading: false })
-  }, 1000)
-})
 export default router
