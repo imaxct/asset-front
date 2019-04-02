@@ -4,9 +4,11 @@
         <router-view></router-view>
         <tabbar style="position: fixed">
             <tabbar-item selected>
+                <img slot="icon" src="./assets/home.png">
                 <span slot="label">首页</span>
             </tabbar-item>
             <tabbar-item>
+                <img slot="icon" src="./assets/user.png">
                 <span slot="label">我的</span>
             </tabbar-item>
         </tabbar>

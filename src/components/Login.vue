@@ -11,10 +11,10 @@
         <divider></divider>
         <flexbox>
             <flexbox-item>
-                <x-button type="warn">重置</x-button>
+                <x-button type="warn" @click.native="handleRest">重置</x-button>
             </flexbox-item>
             <flexbox-item>
-                <x-button type="primary">登录</x-button>
+                <x-button type="primary" @click.native="handleSubmit">登录</x-button>
             </flexbox-item>
         </flexbox>
     </div>
@@ -22,6 +22,8 @@
 
 <script>
 import { Group, XInput, XButton, Flexbox, FlexboxItem, Divider } from 'vux'
+import { mapActions } from 'vuex'
+
 export default {
     components: {
         Group,
@@ -35,6 +37,25 @@ export default {
         return {
             username: '',
             password: ''
+        }
+    },
+    methods: {
+        ...mapActions([
+            'handleLogin'
+        ]),
+        handleRest() {
+            this.username = ''
+            this.password = ''
+        },
+        handleSubmit() {
+            this.handleLogin({
+                username: this.username,
+                password: this.password
+            }).then(res => {
+                this.$router.push({
+                    name: 'home'
+                })
+            })
         }
     }
 }

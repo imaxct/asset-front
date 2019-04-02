@@ -1,5 +1,6 @@
-import HelloWorld from '@/components/HelloFromVux.vue'
+import HelloWorld from '@/components/Home.vue'
 import Login from '@/components/Login.vue'
+import Scan from '@/components/Scan.vue'
 
 export default [
   {
@@ -11,5 +12,10 @@ export default [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/scan',
+    name: 'scan',
+    component: Scan
   }
 ]

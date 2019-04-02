@@ -1,3 +1,5 @@
+import { login } from '@/api/user'
+import { setToken } from '@/libs/util'
 export default {
   state: {
     username: '',
@@ -5,7 +7,8 @@ export default {
     roleName: '',
     roleId: '',
     name: '',
-    phone: ''
+    token: '',
+    expire: 0
   },
   mutations: {
     setUsername (state, username) {
@@ -23,14 +26,49 @@ export default {
     setName (state, name) {
       state.name = name
     },
-    setPhone (state, phone) {
-      state.phone = phone
+    setToken (state, token) {
+      state.token = token
+    },
+    setExpire (state, expire) {
+      state.expire = expire
     }
   },
   actions: {
     handleLogin ({commit}, {username, password}) {
       return new Promise((resolve, reject) => {
-        // TODO
+        login(username, password).then(res => {
+          if (res.data.ok) {
+            const data = res.data.obj
+            commit('setUsername', data.username)
+            commit('setUserId', data.id)
+            commit('setRoleName', data.role.name)
+            commit('setRoleId', data.role.roleName)
+            commit('setName', data.name)
+            commit('setToken', data.token)
+            commit('setExpire', data.expireSecond)
+            setToken({
+              username: data.username,
+              userId: data.id,
+              roleName: data.role.name,
+              roleId: data.role.roleName,
+              name: data.name,
+              token: data.token,
+              expire: data.expireSecond
+            })
+            resolve()
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    handleLogout ({state, commit}) {
+      return new Promise((resolve, reject) => {
+        commit('setUserId', '')
+        commit('setToken', '')
+        commit('setExpire', 0)
+        setToken({})
+        resolve()
       })
     }
   }
