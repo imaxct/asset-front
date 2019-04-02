@@ -17,7 +17,9 @@
 
 <script>
 import { Loading, Tabbar, TabbarItem } from 'vux'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import { getToken } from '@/libs/util'
+
 export default {
     name: 'app',
     components: {
@@ -30,6 +32,21 @@ export default {
         ...mapState({
             isLoading: state => state.loading.isLoading
         })
+    },
+    methods: {
+        ...mapActions([
+            'handleToken'
+        ]),
+    },
+    beforeMount() {
+        const token = getToken()
+        if (token && token['token']) {
+            this.handleToken(token).then(res => {
+                this.$router.push({
+                    name: 'home'
+                })
+            })
+        }
     }
 }
 </script>

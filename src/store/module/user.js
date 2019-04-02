@@ -70,6 +70,22 @@ export default {
         setToken({})
         resolve()
       })
+    },
+    handleToken ({commit}, token) {
+      return new Promise((resolve, reject) => {
+        try {
+          commit('setUsername', token.username)
+          commit('setUserId', token.userId)
+          commit('setRoleName', token.roleName)
+          commit('setRoleId', token.roleId)
+          commit('setName', token.name)
+          commit('setToken', token.token)
+          commit('setExpire', token.expire)
+          resolve()
+        } catch (err) {
+          reject(err)
+        }
+      })
     }
   }
 }
