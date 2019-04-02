@@ -3,11 +3,11 @@
         <loading v-model="isLoading"></loading>
         <router-view></router-view>
         <tabbar style="position: fixed">
-            <tabbar-item selected>
+            <tabbar-item selected link="/">
                 <img slot="icon" src="./assets/home.png">
                 <span slot="label">首页</span>
             </tabbar-item>
-            <tabbar-item>
+            <tabbar-item link="/my">
                 <img slot="icon" src="./assets/user.png">
                 <span slot="label">我的</span>
             </tabbar-item>

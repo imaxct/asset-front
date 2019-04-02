@@ -1,9 +1,11 @@
 <template>
     <div>
+        <divider></divider>
         <div class="vux-demo">
             <img class="logo" src="../assets/vux_logo.png">
             <h1> </h1>
         </div>
+        <divider></divider>
         <grid :cols="3">
             <grid-item label="资产入库" key="1">
                 <img slot="icon" src="../assets/import.png">
@@ -31,13 +33,14 @@
 </template>
 
 <script>
-import { Cell, Grid, GridItem } from 'vux'
+import { Cell, Grid, GridItem, Divider } from 'vux'
 
 export default {
     components: {
         Cell,
         Grid,
-        GridItem
+        GridItem,
+        Divider
     },
     data() {
         return {
