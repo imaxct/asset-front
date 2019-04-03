@@ -1,8 +1,48 @@
 import axios from '@/libs/axios'
 
+/**
+ * 登陆
+ * @param {string} username 用户名
+ * @param {string} password 密码
+ */
 export const login = (username, password) => {
   const param = new URLSearchParams()
   param.append('username', username)
   param.append('password', password)
   return axios.post('/User/login', param)
+}
+
+/**
+ * 修改密码
+ * @param {string} newPassword 新密码
+ */
+export const changePassword = (newPassword) => {
+  if (newPassword.length >= 6 && newPassword.length < 64) {
+    throw new Error('密码长度错误')
+  }
+  return axios.post('/User/passwd', { password: newPassword })
+}
+
+/**
+ * 分页获取用户列表
+ * @param {object} param0 pageNo和size
+ */
+export const listUser = ({ pageNo, size }) => {
+  return axios.post('/User/list', { pageNo, size })
+}
+
+/**
+ * 更新用户信息
+ * @param {object} param0 用户信息
+ */
+export const updateUser = ({ id, name, depId, roleId }) => {
+  return axios.post('/User/save', { id, name, depId, roleId })
+}
+
+/**
+ * 创建新用户
+ * @param {object} param0 用户信息
+ */
+export const createUser = ({ username, password, name, depId, roleId }) => {
+  return axios.post('/User/new', { username, password, name, depId, roleId })
 }
