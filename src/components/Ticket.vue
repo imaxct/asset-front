@@ -1,6 +1,6 @@
 <template>
     <div>
-    
+        {{pid}}
     </div>
 </template>
 
@@ -23,6 +23,10 @@ const process = {
     }
 }
 export default {
-
+    data() {
+        return {
+            pid: this.$route.params.pid
+        }
+    }
 }
 </script>

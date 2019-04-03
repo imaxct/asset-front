@@ -4,6 +4,7 @@ import Scan from '@/components/Scan.vue'
 import Ticket from '@/components/Ticket.vue'
 import Property from '@/components/Property.vue'
 import Profile from '@/components/Profile.vue'
+import changePassword from '@/components/ChangePassword.vue'
 
 export default [
   {
@@ -35,6 +36,10 @@ export default [
   {
     path: '/prop/:id',
     component: Property
+  },
+  {
+    path: '/changePassword',
+    component: changePassword
   },
   {
     path: '/my',

@@ -19,7 +19,7 @@
             <cell title="我的消息" is-link>
               <img slot="icon" src="../assets/message.png" width="20" class="item-icon">
             </cell>
-            <cell title="修改密码" is-link>
+            <cell title="修改密码" is-link link="/changePassword">
               <img slot="icon" src="../assets/pass.png" width="20" class="item-icon">
             </cell>
         </group>
