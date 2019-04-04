@@ -1,53 +1,104 @@
 <template>
-    <div>
-        <group title="旧密码">
-            <x-input title="输入旧密码" placeholder="输入旧密码" :show-clear="true" v-model="oldPassword" required></x-input>
-        </group>
-        <group title="新密码">
-            <x-input title="输入新密码" placeholder="输入新密码" :show-clear="true" v-model="newPassword" required></x-input>
-        </group>
-        <group title="重复新密码">
-            <x-input title="重复新密码" placeholder="重复新密码" :show-clear="true" v-model="newPassword2" :equal-with="newPassword" @on-blur="onBlur" required></x-input>
-        </group>
-        <group>
-            <x-button @click.native="onClick">提交</x-button>
-        </group>
-    </div>
+  <div>
+    <group title="旧密码">
+      <x-input
+        type="password"
+        title="输入旧密码"
+        placeholder="输入旧密码"
+        :show-clear="true"
+        v-model="oldPassword"
+        required
+      ></x-input>
+    </group>
+    <group title="新密码">
+      <x-input
+        type="password"
+        title="输入新密码"
+        placeholder="输入新密码"
+        :show-clear="true"
+        v-model="newPassword"
+        required
+      ></x-input>
+    </group>
+    <group title="重复新密码">
+      <x-input
+        type="password"
+        title="重复新密码"
+        placeholder="重复新密码"
+        :show-clear="true"
+        v-model="newPassword2"
+        :equal-with="newPassword"
+        required
+      ></x-input>
+    </group>
+    <group>
+      <x-button @click.native="onClick">提交</x-button>
+    </group>
+  </div>
 </template>
 
 <script>
-import { Group, XInput, XButton } from 'vux'
-import { changePassword } from '@/api/user'
+import { Group, XInput, XButton, AlertModule } from "vux";
+import { changePassword } from "@/api/user";
+import { setToken } from "@/libs/util";
+import { mapActions } from "vuex";
 export default {
-    components: {
-        Group,
-        XInput,
-        XButton
-    },
-    data() {
-        return {
-            iconType: '',
-            oldPassword: '',
-            newPassword: '',
-            newPassword2: ''
-        }
-    },
-    methods: {
-        onClick() {
-            console.log(this.newPassword)
-            changePassword({ password: this.newPassword }).then(res => {
-                console.log(res.data)
-            })
-        },
-        onBlur(e) {
-            console.log(this.newPassword)
-            console.log(this.newPassword2)
-            if (this.newPassword !== this.newPassword2) {
-                this.iconType = 'error'
-            } else {
-                this.iconType = 'success'
+  components: {
+    Group,
+    XInput,
+    XButton
+  },
+  data() {
+    return {
+      oldPassword: "",
+      newPassword: "",
+      newPassword2: ""
+    };
+  },
+  methods: {
+    ...mapActions(["handleLogout"]),
+    onClick() {
+      changePassword({
+        newPassword: this.newPassword,
+        oldPassword: this.oldPassword
+      })
+        .then(res => {
+          const data = res.data;
+          let path = "/login";
+          let msg = "修改成功";
+          if (!data.ok) {
+            path = "/";
+            msg = data.msg || "修改失败";
+          } else {
+            setToken({});
+            this.handleLogout();
+          }
+          const that = this;
+          AlertModule.show({
+            title: "提示",
+            content: msg,
+            onHide() {
+              if (data.ok) {
+                that.$router.replace({
+                  path
+                });
+              }
             }
-        }
-    },
-}
+          });
+        })
+        .catch(err => {
+          const that = this;
+          AlertModule.show({
+            title: "错误",
+            content: err,
+            onHide() {
+              that.$router.replace({
+                name: "home"
+              });
+            }
+          });
+        });
+    }
+  }
+};
 </script>

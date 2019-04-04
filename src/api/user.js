@@ -14,13 +14,13 @@ export const login = (username, password) => {
 
 /**
  * 修改密码
- * @param {string} newPassword 新密码
+ * @param {object} param0 参数
  */
-export const changePassword = (newPassword) => {
-  if (newPassword.length >= 6 && newPassword.length < 64) {
+export const changePassword = ({ newPassword, oldPassword }) => {
+  if (!(newPassword.length >= 6 && newPassword.length < 64)) {
     throw new Error('密码长度错误')
   }
-  return axios.post('/User/passwd', { password: newPassword })
+  return axios.post('/User/passwd', { password: newPassword, oldPassword })
 }
 
 /**

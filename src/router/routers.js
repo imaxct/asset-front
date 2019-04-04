@@ -5,6 +5,7 @@ import Ticket from '@/components/Ticket.vue'
 import Property from '@/components/Property.vue'
 import Profile from '@/components/Profile.vue'
 import changePassword from '@/components/ChangePassword.vue'
+import PropertyList from '@/components/PropertyList.vue'
 
 export default [
   {
@@ -36,6 +37,10 @@ export default [
   {
     path: '/prop/:id',
     component: Property
+  },
+  {
+    path: '/process/:pid',
+    component: PropertyList
   },
   {
     path: '/changePassword',

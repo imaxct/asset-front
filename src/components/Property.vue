@@ -1,15 +1,13 @@
 <template>
-    <div>
-        {{id}}
-    </div>
+  <div>{{id}}</div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            id: this.$route.params.id || 'null'
-        }
-    }
-}
+  data() {
+    return {
+      id: this.$route.params.id || "null"
+    };
+  }
+};
 </script>

@@ -1,3 +1,4 @@
+import { AlertModule } from 'vux'
 export const TOKEN_KEY = 'token'
 
 export const canTurnTo = (name, access, routes) => {
@@ -33,4 +34,18 @@ export const getToken = () => {
 export const setToken = (token) => {
   token['gmtCreate'] = new Date().getTime() / 1000
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token))
+}
+
+export const showMsg = ({ title, content, replacePath, router }) => {
+  AlertModule.show({
+    title,
+    content,
+    onHide () {
+      if (replacePath) {
+        router.push({
+          path: replacePath
+        })
+      }
+    }
+  })
 }
