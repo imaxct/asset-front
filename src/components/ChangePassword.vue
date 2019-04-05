@@ -1,5 +1,6 @@
 <template>
   <div>
+    <x-header>修改密码</x-header>
     <group title="旧密码">
       <x-input
         type="password"
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import { Group, XInput, XButton, AlertModule } from "vux";
+import { Group, XInput, XButton, AlertModule, XHeader } from "vux";
 import { changePassword } from "@/api/user";
 import { setToken } from "@/libs/util";
 import { mapActions } from "vuex";
@@ -46,7 +47,8 @@ export default {
   components: {
     Group,
     XInput,
-    XButton
+    XButton,
+    XHeader
   },
   data() {
     return {

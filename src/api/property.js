@@ -1,10 +1,17 @@
 import axios from '@/libs/axios'
 
 /**
- * 获取本人可操作的资产
+ * 获取本人名下资产
  */
-export const getAvailable = () => {
-  return axios.get('/Prop/avail')
+export const getMine = () => {
+  return axios.get('/Prop/getMy')
+}
+
+/**
+ * 获取本人部门资产
+ */
+export const getMyDep = () => {
+  return axios.get('/Prop/getDep')
 }
 
 /**
@@ -12,7 +19,7 @@ export const getAvailable = () => {
  * @param {string} pid 资产id
  */
 export const getDetail = (pid) => {
-  return axios.get('/Prop/get', { id: pid })
+  return axios.get(`/Prop/get?id=${pid}`)
 }
 
 /**
@@ -20,7 +27,7 @@ export const getDetail = (pid) => {
  * @param {integer} id id
  */
 export const getBrief = (id) => {
-  return axios.get('/Prop/getById', { id })
+  return axios.get(`/Prop/getById?id=${id}`)
 }
 
 /**

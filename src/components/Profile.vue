@@ -1,5 +1,10 @@
 <template>
   <div>
+    <divider></divider>
+    <!-- <div style="text-align: center;">
+      <img src="../assets/profile_logo2.png" width="200">
+    </div> -->
+
     <group title="个人页">
       <cell
         title="个人信息"
@@ -19,7 +24,7 @@
       <cell title="我的记录" is-link>
         <img slot="icon" src="../assets/record.png" width="20" class="item-icon">
       </cell>
-      <cell title="当前资产" is-link>
+      <cell title="当前资产" is-link link="/process">
         <img slot="icon" src="../assets/property.png" width="20" class="item-icon">
       </cell>
       <cell title="我的消息" is-link>
@@ -33,13 +38,14 @@
 </template>
 
 <script>
-import { Group, Cell, CellBox } from "vux";
+import { Group, Cell, CellBox, Divider } from "vux";
 import store from "@/store";
 export default {
   components: {
     Group,
     Cell,
-    CellBox
+    CellBox,
+    Divider
   },
   data() {
     return {
@@ -52,7 +58,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="less" scoped>
 .sub-item {
   color: #888;
 }

@@ -10,16 +10,16 @@
       <grid-item label="资产入库" key="1" link="/process/1">
         <img slot="icon" src="../assets/import.png">
       </grid-item>
-      <grid-item label="资产出库" key="2">
+      <grid-item label="资产出库" key="2" link="/process/2">
         <img slot="icon" src="../assets/export.png">
       </grid-item>
-      <grid-item label="资产流转" key="3">
+      <grid-item label="资产流转" key="3" link="/process/3">
         <img slot="icon" src="../assets/transfer.png">
       </grid-item>
-      <grid-item label="资产处理" key="4">
+      <grid-item label="资产处理" key="4" link="/process/4">
         <img slot="icon" src="../assets/detail.png">
       </grid-item>
-      <grid-item label="资产维保" key="5">
+      <grid-item label="资产维保" key="5" link="/process/5">
         <img slot="icon" src="../assets/check.png">
       </grid-item>
       <grid-item label="资产查询" key="6">

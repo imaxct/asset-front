@@ -27,16 +27,16 @@ export default [
     component: Scan
   },
   {
-    path: '/ticket/:pid',
-    component: Ticket
-  },
-  {
     path: '/ticket/:pid/:id',
     component: Ticket
   },
   {
     path: '/prop/:id',
     component: Property
+  },
+  {
+    path: '/process',
+    component: PropertyList
   },
   {
     path: '/process/:pid',
@@ -48,6 +48,7 @@ export default [
   },
   {
     path: '/my',
+    name: 'profile',
     component: Profile
   },
   {
