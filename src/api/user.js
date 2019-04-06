@@ -46,3 +46,11 @@ export const updateUser = ({ id, name, depId, roleId }) => {
 export const createUser = ({ username, password, name, depId, roleId }) => {
   return axios.post('/User/new', { username, password, name, depId, roleId })
 }
+
+/**
+ * 根据用户id获取姓名
+ * @param {integer} id 用户id
+ */
+export const getUserNameById = (id) => {
+  return axios.get(`/User/getUserName?id=${id}`)
+}

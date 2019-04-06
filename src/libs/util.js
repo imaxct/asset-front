@@ -36,9 +36,9 @@ export const setToken = (token) => {
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token))
 }
 
-export const showMsg = ({ title, content, replacePath, router }) => {
+export const showMsg = ({ content, replacePath, router }) => {
   AlertModule.show({
-    title,
+    title: '提示',
     content,
     onHide () {
       if (replacePath) {

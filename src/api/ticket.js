@@ -13,7 +13,7 @@ export const submitTicket = ({ propertyId, processId, transferUserId, applyReaso
  * @param {integer} id 工单id
  */
 export const getTicketDetail = (id) => {
-  return axios.get('/Ticket/get', { id })
+  return axios.get(`/Ticket/get?id=${id}`)
 }
 
 /**

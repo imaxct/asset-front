@@ -14,3 +14,11 @@ export const getAllProcess = () => {
 export const addProcess = (process) => {
   return axios.post('/Process/add', process)
 }
+
+/**
+ * 获取流程
+ * @param {integer} id id
+ */
+export const getProcessById = (id) => {
+  return axios.get(`/Process/get?id=${id}`)
+}

@@ -34,9 +34,11 @@ export default {
       if (res.data.ok) {
         const data = res.data.obj;
         data.forEach(t => {
-          const status = StatusRequired[this.$route.params.pid];
-          if (!status.includes(t.curStatus)) {
-            return;
+          if (!this.less) {
+            const status = StatusRequired[this.$route.params.pid];
+            if (!status.includes(t.curStatus)) {
+              return;
+            }
           }
           if (t.gmtModified) {
             t.gmtModified = t.gmtModified.replace("T", " ");
@@ -92,9 +94,8 @@ export default {
   mounted() {
     if (!this.$route.params.pid || !this.$route.params.pid.match(/^\d+$/)) {
       this.less = true;
-    } else {
-      this.loadData();
     }
+    this.loadData();
   }
 };
 </script>
