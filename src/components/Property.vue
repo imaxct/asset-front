@@ -21,18 +21,18 @@
             :is-loading="!occupyUserName"
             v-if="info.property.occupyUserId"
           ></cell>
-          <cell title="当前流程" :value="processName" :is-loading="!processName" v-if="info.ticket" link="/"></cell>
+          <cell
+            title="当前流程"
+            :value="processName"
+            :is-loading="!processName"
+            v-if="info.ticket"
+            :link="`/log/${info.ticket.id}`"
+          ></cell>
         </group>
         <group v-if="info.processes.length" title="可发起流程">
-          <x-button
-            v-for="t in info.processes"
-            :key="t.id"
-            mini
-            plain
-            type="primary"
-            :link="`/Ticket/${t.id}/${id}`"
-          >{{t.name}}</x-button>
-          <divider></divider>
+          <div style="padding: 5px 7px 0; display: inline-block" v-for="t in info.processes" :key="t.id">
+            <x-button mini plain type="primary" :link="`/Ticket/${t.id}/${id}`">{{t.name}}</x-button>
+          </div>
         </group>
       </div>
     </card>

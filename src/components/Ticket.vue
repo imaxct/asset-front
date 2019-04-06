@@ -20,7 +20,7 @@
 <script>
 import { XTextarea, Group, XInput, XHeader, PopupPicker, Cell } from "vux";
 import { getBrief } from "@/api/property";
-import { PropertyStatus } from "@/libs/util";
+import { PropertyStatus, showMsg } from "@/libs/util";
 export default {
   components: {
     XTextarea,
