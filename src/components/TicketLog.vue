@@ -2,17 +2,12 @@
   <div>
     <x-header>流程进度</x-header>
     <group title="当前进度">
-      <br>
       <flow>
         <flow-state state="1" title="提交流程" is-done></flow-state>
         <flow-line is-done></flow-line>
         <template v-for="(p, idx) in process.steps">
           <flow-state :state="idx + 1" :title="p.name" :is-done="p.id < ticket.ticket.curStepId"></flow-state>
-          <flow-line
-            :tip="ticket.ticket.curStepId === p.nextStepId ? '进行中' : ''"
-            :is-done="p.id < ticket.ticket.curStepId"
-            v-if="p.nextStepId"
-          ></flow-line>
+          <flow-line :is-done="p.id < ticket.ticket.curStepId" v-if="p.nextStepId"></flow-line>
         </template>
       </flow>
       <!-- <step v-model="curStepValue" style="width: 95%;margin: 0 auto;">
