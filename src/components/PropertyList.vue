@@ -46,9 +46,6 @@ export default {
           } else {
             this.vis.push(t.id);
           }
-          if (t.gmtModified) {
-            t.gmtModified = t.gmtModified.replace("T", " ");
-          }
           this.list.push({
             title: t.name,
             desc: `当前状态：${PropertyStatus[t.curStatus]} 当前流程：${

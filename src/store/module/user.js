@@ -76,11 +76,15 @@ export default {
     },
     handleLogout ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        commit('setUserId', '')
-        commit('setToken', '')
-        commit('setExpire', 0)
-        setToken({})
-        resolve()
+        try {
+          commit('setUserId', '')
+          commit('setToken', '')
+          commit('setExpire', 0)
+          setToken({})
+          resolve()
+        } catch (err) {
+          reject(err)
+        }
       })
     },
     handleToken ({ commit }, token) {

@@ -22,3 +22,7 @@ export const getTicketDetail = (id) => {
 export const getMyTickets = () => {
   return axios.get('/Ticket/list')
 }
+
+export const getTodoTickets = () => {
+  return axios.get('/Ticket/todo')
+}

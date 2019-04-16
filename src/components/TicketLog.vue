@@ -1,22 +1,28 @@
 <template>
   <div>
     <x-header>流程进度</x-header>
-    <group title="当前进度">
+    <group :title="process.process.name + '- 当前进度'">
       <div style="padding: 0 40px;">
-      <flow>
-        <flow-state state="1" title="提交" is-done></flow-state>
-        <flow-line is-done></flow-line>
-        <template v-for="(p, idx) in process.steps">
-          <flow-state :state="idx + 2" :title="p.name" :is-done="p.id < ticket.ticket.curStepId"></flow-state>
-          <flow-line :is-done="p.id < ticket.ticket.curStepId" v-if="p.nextStepId"></flow-line>
-        </template>
-      </flow>
+        <flow>
+          <flow-state state="1" title="提交" is-done></flow-state>
+          <flow-line is-done></flow-line>
+          <template v-for="(p, idx) in process.steps">
+            <flow-state
+              :state="idx + 2"
+              :title="p.name"
+              :is-done="!curStep || p.id < ticket.ticket.curStepId"
+            ></flow-state>
+            <flow-line :is-done="!curStep || p.id < ticket.ticket.curStepId" v-if="p.nextStepId"></flow-line>
+          </template>
+        </flow>
       </div>
     </group>
-    <group :title="'当前步骤：' + curStep.name">
+    <group :title="'当前步骤：' + curStep.name" v-if="canProcess">
       <radio :options="[{key:'true',value:'同意'},{key:'false',value:'拒绝'}]" @on-change="valueChange"></radio>
       <x-textarea v-model="stepProcess.text" placeholder="请填写审批意见" title="审批意见"></x-textarea>
-      <x-button @click.native="handleSumbit" mini plain type="primary">提交</x-button>
+      <div style="padding: 0 10px;">
+        <x-button @click.native="handleSumbit" mini plain type="primary">提交</x-button>
+      </div>
     </group>
     <group title="流程记录">
       <x-table style="line-height: 35px;">
@@ -24,8 +30,8 @@
           <tr>
             <th>时间</th>
             <th>步骤</th>
-            <th>审批人</th>
-            <th>通过</th>
+            <th>处理人</th>
+            <th>是否通过</th>
           </tr>
         </thead>
         <tbody style="font-size: 13px; color: #7d7d7d;">
@@ -98,7 +104,7 @@ export default {
       show: false,
       message: "",
       canProcess: false,
-      curStep: {},
+      curStep: null,
       process: {
         process: {},
         steps: []
@@ -106,13 +112,7 @@ export default {
       ticket: {
         propertyId: "",
         propertyName: "",
-        ticket: {
-          id: null,
-          curStepId: null,
-          processId: null,
-          curStatus: "",
-          applyReason: ""
-        },
+        ticket: {},
         logs: []
       }
     };
@@ -148,7 +148,6 @@ export default {
       });
     },
     clickItem(idx) {
-      console.log(this.ticket.logs[idx].processProposal);
       this.message = this.ticket.logs[idx].processProposal;
       this.show = true;
     },
@@ -157,13 +156,6 @@ export default {
         if (res.data.ok) {
           const token = getToken();
           this.ticket = res.data.obj;
-          this.ticket.logs.unshift({
-            gmtCreate: this.ticket.ticket.gmtCreate,
-            stepName: '提交流程',
-            pass: true,
-            processUser: token.name,
-            processProposal: '提交流程'
-          });
           getProcessById(this.ticket.ticket.processId).then(r => {
             if (r.data.ok) {
               this.process = r.data.obj;
@@ -174,11 +166,14 @@ export default {
                   break;
                 }
               }
+              if (!this.curStep) return;
               const arr = this.curStep.roleRequired.split(",");
               if (!token) return;
               for (let idx in arr) {
-                if (arr[idx] === token.roleName) {
-                  this.canProcess = true;
+                if (arr[idx] === token.roleId) {
+                  if (this.ticket.ticket.applyUserId != token.userId) {
+                    this.canProcess = true;
+                  }
                   break;
                 }
               }

@@ -8,6 +8,7 @@ import changePassword from '@/components/ChangePassword.vue'
 import PropertyList from '@/components/PropertyList.vue'
 import TicketLog from '@/components/TicketLog.vue'
 import TicketList from '@/components/TicketList.vue'
+import Logout from '@/components/Logout.vue'
 
 export default [
   {
@@ -49,7 +50,11 @@ export default [
     component: TicketLog
   },
   {
-    path: '/ticketList',
+    path: '/tickets',
+    component: TicketList
+  },
+  {
+    path: '/tickets/:todo',
     component: TicketList
   },
   {
@@ -60,6 +65,11 @@ export default [
     path: '/my',
     name: 'profile',
     component: Profile
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout
   },
   {
     path: '*',
