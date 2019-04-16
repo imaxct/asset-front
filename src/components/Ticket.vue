@@ -74,11 +74,12 @@ export default {
       submitTicket({
         propertyId: this.prop.id,
         processId: this.pid,
-        applyReason: this.applyReason
+        applyReason: this.applyReason,
+        finalStatus: this.finalStatus.length > 0 ? this.finalStatus[0] : null
       }).then(res => {
         showMsg({
           content: res.data.ok ? "提交成功" : res.data.msg,
-          replacePath: res.data.ok ? `/ticket/${res.data.obj}` :"/",
+          replacePath: res.data.ok ? `/ticket/${res.data.obj}` : "/",
           router: this.$router
         });
       });

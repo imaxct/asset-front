@@ -4,8 +4,8 @@ import axios from '@/libs/axios'
  * 提交工单
  * @param {object} ticket 工单对象
  */
-export const submitTicket = ({ propertyId, processId, transferUserId, applyReason }) => {
-  return axios.post('/Ticket/submit', { propertyId, processId, transferUserId, applyReason })
+export const submitTicket = ({ propertyId, processId, transferUserId, applyReason, finalStatus }) => {
+  return axios.post('/Ticket/submit', { propertyId, processId, transferUserId, applyReason, finalStatus })
 }
 
 /**
