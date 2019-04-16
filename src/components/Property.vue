@@ -29,11 +29,6 @@
             :link="`/log/${info.ticket.id}`"
           ></cell>
         </group>
-        <group v-if="info.processes.length" title="可发起流程">
-          <div style="padding: 5px 7px 0; display: inline-block" v-for="t in info.processes" :key="t.id">
-            <x-button mini plain type="primary" :link="`/Ticket/${t.id}/${id}`">{{t.name}}</x-button>
-          </div>
-        </group>
       </div>
     </card>
   </div>
@@ -74,7 +69,6 @@ export default {
       id: this.$route.params.id || "null",
       info: {
         property: {},
-        processes: [],
         step: null,
         ticket: null
       },
@@ -104,7 +98,6 @@ export default {
               } else {
                 this.processName = " ";
                 showMsg({
-                  title: "提示",
                   content: res.data.msg
                 });
               }
@@ -112,7 +105,6 @@ export default {
           }
         } else {
           showMsg({
-            title: "提示",
             content: res.data.msg,
             replacePath: "/",
             router: this.$router
@@ -124,7 +116,6 @@ export default {
   mounted() {
     if (!this.$route.params.id) {
       showMsg({
-        title: "提示",
         content: "参数错误",
         replacePath: "/",
         router: this.$router

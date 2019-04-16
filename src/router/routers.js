@@ -7,6 +7,7 @@ import Profile from '@/components/Profile.vue'
 import changePassword from '@/components/ChangePassword.vue'
 import PropertyList from '@/components/PropertyList.vue'
 import TicketLog from '@/components/TicketLog.vue'
+import TicketList from '@/components/TicketList.vue'
 
 export default [
   {
@@ -46,6 +47,10 @@ export default [
   {
     path: '/log/:tid',
     component: TicketLog
+  },
+  {
+    path: '/ticketList',
+    component: TicketList
   },
   {
     path: '/changePassword',

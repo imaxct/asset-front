@@ -21,7 +21,7 @@
         <cell-box class="sub-item">姓名: {{info.name}}</cell-box>
         <cell-box class="sub-item">角色: {{info.roleName}}</cell-box>
       </template>
-      <cell title="我的记录" is-link>
+      <cell title="我的记录" is-link link="/ticketList">
         <img slot="icon" src="../assets/record.png" width="20" class="item-icon">
       </cell>
       <cell title="当前资产" is-link link="/process">

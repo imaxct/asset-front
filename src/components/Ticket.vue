@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>填写流程单({{process[pid].name}})</x-header>
+    <x-header>填写流程单({{process[pid]}})</x-header>
     <group>
       <cell title="名称" :value="prop.name"></cell>
       <cell title="部门" :value="prop.depName"></cell>
@@ -12,14 +12,27 @@
         v-model="finalStatus"
         :show-name="true"
       ></popup-picker>
-      <x-textarea title="申请原因" :max="250" placeholder="请填写申请原因"></x-textarea>
+      <x-textarea title="申请原因" :max="250" placeholder="请填写申请原因" v-model="applyReason"></x-textarea>
+      <br>
+      <div style="padding: 0 20px;">
+        <x-button @click.native="submit" type="primary">提交</x-button>
+      </div>
     </group>
   </div>
 </template>
 
 <script>
-import { XTextarea, Group, XInput, XHeader, PopupPicker, Cell } from "vux";
+import {
+  XTextarea,
+  Group,
+  XInput,
+  XHeader,
+  PopupPicker,
+  Cell,
+  XButton
+} from "vux";
 import { getBrief } from "@/api/property";
+import { submitTicket } from "@/api/ticket";
 import { PropertyStatus, showMsg } from "@/libs/util";
 export default {
   components: {
@@ -28,11 +41,13 @@ export default {
     XInput,
     XHeader,
     PopupPicker,
-    Cell
+    Cell,
+    XButton
   },
   data() {
     return {
       pid: this.$route.params.pid,
+      applyReason: "",
       prop: {},
       finalStatus: [],
       PropertyStatus,
@@ -46,25 +61,28 @@ export default {
         ]
       ],
       process: {
-        1: {
-          name: "资产入库"
-        },
-        2: {
-          name: "资产出库"
-        },
-        3: {
-          name: "资产流转"
-        },
-        4: {
-          name: "资产处理"
-        },
-        5: {
-          name: "资产维保"
-        }
+        1: "资产入库",
+        2: "资产出库",
+        3: "资产流转",
+        4: "资产处理",
+        5: "资产维保"
       }
     };
   },
   methods: {
+    submit() {
+      submitTicket({
+        propertyId: this.prop.id,
+        processId: this.pid,
+        applyReason: this.applyReason
+      }).then(res => {
+        showMsg({
+          content: res.data.ok ? "提交成功" : res.data.msg,
+          replacePath: res.data.ok ? `/ticket/${res.data.obj}` :"/",
+          router: this.$router
+        });
+      });
+    },
     loadData() {
       getBrief(this.$route.params.id).then(res => {
         if (res.data.ok) {
@@ -74,7 +92,6 @@ export default {
           }
         } else {
           showMsg({
-            title: "提示",
             content: res.data.msg,
             replacePath: "/",
             router: this.$router

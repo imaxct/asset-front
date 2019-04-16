@@ -8,7 +8,9 @@ export default {
     roleId: '',
     name: '',
     token: '',
-    expire: 0
+    expire: 0,
+    depName: '',
+    depId: 0
   },
   mutations: {
     setUsername (state, username) {
@@ -31,10 +33,16 @@ export default {
     },
     setExpire (state, expire) {
       state.expire = expire
+    },
+    setDepName (state, depName) {
+      state.depName = depName
+    },
+    setDepId (state, depId) {
+      state.depId = depId
     }
   },
   actions: {
-    handleLogin ({commit}, {username, password}) {
+    handleLogin ({ commit }, { username, password }) {
       return new Promise((resolve, reject) => {
         login(username, password).then(res => {
           if (res.data.ok) {
@@ -46,6 +54,8 @@ export default {
             commit('setName', data.name)
             commit('setToken', data.token)
             commit('setExpire', data.expireSecond)
+            commit('setDepName', data.depName)
+            commit('setDepId', data.depId)
             setToken({
               username: data.username,
               userId: data.id,
@@ -53,7 +63,9 @@ export default {
               roleId: data.role.roleName,
               name: data.name,
               token: data.token,
-              expire: data.expireSecond
+              expire: data.expireSecond,
+              depId: data.depId,
+              depName: data.depName
             })
             resolve()
           }
@@ -62,7 +74,7 @@ export default {
         })
       })
     },
-    handleLogout ({state, commit}) {
+    handleLogout ({ state, commit }) {
       return new Promise((resolve, reject) => {
         commit('setUserId', '')
         commit('setToken', '')
@@ -71,7 +83,7 @@ export default {
         resolve()
       })
     },
-    handleToken ({commit}, token) {
+    handleToken ({ commit }, token) {
       return new Promise((resolve, reject) => {
         try {
           commit('setUsername', token.username)
@@ -81,6 +93,8 @@ export default {
           commit('setName', token.name)
           commit('setToken', token.token)
           commit('setExpire', token.expire)
+          commit('setDepName', token.depName)
+          commit('setDepId', token.depId)
           resolve()
         } catch (err) {
           reject(err)

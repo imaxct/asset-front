@@ -60,3 +60,11 @@ export const PropertyStatus = {
   RUINED: '报废',
   OUT_OF_WORK: '故障'
 }
+
+export const TicketStatus = {
+  SUBMIT: '已提交',
+  PROCESSING: '审批中',
+  PASS: '审批通过',
+  DENY: '审批未通过',
+  DONE: '工单关闭'
+}

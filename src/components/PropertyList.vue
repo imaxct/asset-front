@@ -25,6 +25,7 @@ export default {
   },
   data() {
     return {
+      vis: [],
       list: [],
       less: false
     };
@@ -39,6 +40,11 @@ export default {
             if (!status.includes(t.curStatus)) {
               return;
             }
+          }
+          if (this.vis.includes(t.id)) {
+            return;
+          } else {
+            this.vis.push(t.id);
           }
           if (t.gmtModified) {
             t.gmtModified = t.gmtModified.replace("T", " ");
@@ -65,7 +71,6 @@ export default {
     handleError(err) {
       console.log(err);
       showMsg({
-        title: "提示",
         content: "加载数据错误",
         replacePath: "/",
         router: this.$router
