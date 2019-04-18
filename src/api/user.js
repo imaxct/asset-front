@@ -5,11 +5,8 @@ import axios from '@/libs/axios'
  * @param {string} username 用户名
  * @param {string} password 密码
  */
-export const login = (username, password) => {
-  const param = new URLSearchParams()
-  param.append('username', username)
-  param.append('password', password)
-  return axios.post('/User/login', param)
+export const login = ({ username, password }) => {
+  return axios.post('/User/login', { username, password })
 }
 
 /**

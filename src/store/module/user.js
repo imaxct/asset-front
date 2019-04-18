@@ -44,7 +44,7 @@ export default {
   actions: {
     handleLogin ({ commit }, { username, password }) {
       return new Promise((resolve, reject) => {
-        login(username, password).then(res => {
+        login({ username, password }).then(res => {
           if (res.data.ok) {
             const data = res.data.obj
             commit('setUsername', data.username)
