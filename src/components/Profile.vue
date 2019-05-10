@@ -27,8 +27,9 @@
       <cell title="当前资产" is-link link="/process">
         <img slot="icon" src="../assets/property.png" width="20" class="item-icon">
       </cell>
-      <cell title="我的消息" is-link>
+      <cell title="我的消息" is-link link="/message">
         <img slot="icon" src="../assets/message.png" width="20" class="item-icon">
+        <badge v-if="unreadCount > 0" :text="unreadCount"></badge>
       </cell>
       <cell title="修改密码" is-link link="/changePassword">
         <img slot="icon" src="../assets/pass.png" width="20" class="item-icon">
@@ -41,22 +42,38 @@
 </template>
 
 <script>
-import { Group, Cell, CellBox, Divider } from "vux";
+import { Group, Cell, CellBox, Divider, Badge } from "vux";
+import { getUnreadCount } from "@/api/message";
 import store from "@/store";
 export default {
   components: {
     Group,
     Cell,
     CellBox,
-    Divider
+    Divider,
+    Badge
   },
   data() {
     return {
       info: {
         ...store.state.user
       },
-      showInfo: false
+      showInfo: false,
+      unreadCount: 0
     };
+  },
+  methods: {
+    loadData() {
+      getUnreadCount().then(res => {
+        const { data } = res;
+        if (data.ok) {
+          this.unreadCount = data.obj;
+        }
+      });
+    }
+  },
+  mounted() {
+    this.loadData();
   }
 };
 </script>

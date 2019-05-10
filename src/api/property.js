@@ -44,3 +44,7 @@ export const listProperty = () => {
 export const addProperty = (propertyList) => {
   return axios.post('/Prop/add', propertyList)
 }
+
+export const searchProperty = ({ name }) => {
+  return axios.post('/Prop/search', { name })
+}

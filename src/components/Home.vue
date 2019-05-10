@@ -22,7 +22,7 @@
       <grid-item label="资产维保" key="5" link="/process/5">
         <img slot="icon" src="../assets/check.png">
       </grid-item>
-      <grid-item label="资产查询" key="6">
+      <grid-item label="资产查询" key="6" link="/search">
         <img slot="icon" src="../assets/search.png">
       </grid-item>
       <grid-item label="二维码扫描" key="7" link="/scan">

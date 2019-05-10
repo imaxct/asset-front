@@ -1,18 +1,22 @@
 <template>
-  <div class="fullscreen">
-    <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"/>
+  <div>
+    <x-header style="z-index:999999;">二维码扫描</x-header>
+    <div class="fullscreen">
+      <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"/>
+    </div>
   </div>
 </template>
 
 <script>
-import { AlertModule, Flexbox, FlexboxItem, Divider } from "vux";
+import { AlertModule, Flexbox, FlexboxItem, Divider, XHeader } from "vux";
 import { QrcodeStream } from "vue-qrcode-reader";
 export default {
   components: {
     QrcodeStream,
     Flexbox,
     FlexboxItem,
-    Divider
+    Divider,
+    XHeader
   },
   data() {
     return {
