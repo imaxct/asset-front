@@ -3,7 +3,7 @@ import { getToken } from '@/libs/util'
 import store from '@/store'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8081/'
+  baseURL: process.env.API_BASE_URL
 })
 
 const TOKEN_NAME = 'Random-timestamp'
