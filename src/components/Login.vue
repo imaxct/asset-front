@@ -49,11 +49,18 @@ export default {
       this.handleLogin({
         username: this.username,
         password: this.password
-      }).then(res => {
-        this.$router.push({
-          name: "home"
+      })
+        .then(res => {
+          this.$router.push({
+            name: "home"
+          });
+        })
+        .catch(err => {
+          this.$vux.alert.show({
+            title: "提示",
+            content: err
+          });
         });
-      });
     }
   }
 };

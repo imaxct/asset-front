@@ -68,6 +68,8 @@ export default {
               depName: data.depName
             })
             resolve()
+          } else {
+            reject(res.data.msg)
           }
         }).catch(err => {
           reject(err)
