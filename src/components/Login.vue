@@ -21,7 +21,15 @@
 </template>
 
 <script>
-import { Group, XInput, XButton, Flexbox, FlexboxItem, Divider } from "vux";
+import {
+  Group,
+  XInput,
+  XButton,
+  Flexbox,
+  FlexboxItem,
+  Divider,
+  AlertModule
+} from "vux";
 import { mapActions } from "vuex";
 
 export default {
@@ -56,7 +64,7 @@ export default {
           });
         })
         .catch(err => {
-          this.$vux.alert.show({
+          AlertModule.show({
             title: "提示",
             content: err
           });
